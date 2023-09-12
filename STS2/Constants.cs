@@ -10,7 +10,7 @@ namespace STS2
         public const string Namespace = "http://tempuri.org/";
         public const string SamlTokenTypeUri = "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1";
 
-        public const string ServiceAudienceUri = "https://services-acpt.ehealth.fgov.be/IAM/Saml11TokenService/v1";
+        public const string ServiceAudienceUri = "https://localhost:8080/services/echo/soap12";
 
         // Various constants for WS-Trust
         public class Trust

@@ -13,22 +13,25 @@ namespace STS2
     {
         static void Main(string[] args)
         {
-            Uri httpUri = new Uri("http://localhost:9394/CustomSTS.svc/CustomSTS");
+            Uri httpUri = new Uri("http://localhost:9394/STS.svc/CustomSTS");
+            Uri httpsUri = new Uri("https://localhost:44368/STS.svc/CustomSTS");
+            Uri mex = new Uri("http://localhost:9394/STS.svc/mex");
 
-            ServiceHost myHost = new ServiceHost(typeof(CustomSTS), httpUri);
+            ServiceHost myHost = new ServiceHost(typeof(CustomSTS), httpsUri);
 
             WSHttpBinding b = new WSHttpBinding();
-            b.Security.Mode = SecurityMode.None;
-            
+            b.Security.Mode = SecurityMode.TransportWithMessageCredential;
+            b.Security.Message.ClientCredentialType = MessageCredentialType.Certificate;
+                       
 
             myHost.AddServiceEndpoint(typeof(ICustomSTS), b, "");
-
+                
             ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
             smb.HttpGetEnabled = true;
+            smb.HttpsGetEnabled = true;
             myHost.Description.Behaviors.Add(smb);
-            myHost.AddServiceEndpoint(ServiceMetadataBehavior.MexContractName, MetadataExchangeBindings.CreateMexHttpBinding(), "mex");
+            myHost.AddServiceEndpoint(ServiceMetadataBehavior.MexContractName, MetadataExchangeBindings.CreateMexHttpBinding(), mex);
 
-            myHost.Open();
 
             Console.WriteLine("Host was started...");
             Console.ReadLine();
