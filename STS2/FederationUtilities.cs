@@ -23,7 +23,7 @@ namespace STS2
             {
                 store = new X509Store(storeName, storeLocation);
                 store.Open(OpenFlags.ReadOnly);
-                X509Certificate2Collection certs = store.Certificates.Find(X509FindType.FindBySubjectDistinguishedName,
+                X509Certificate2Collection certs = store.Certificates.Find(X509FindType.FindBySerialNumber,
                                                                            subjectDistinguishedName, false);
                 if (certs.Count != 1)
                 {

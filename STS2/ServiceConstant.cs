@@ -17,9 +17,8 @@ namespace STS2
         internal static StoreLocation CertStoreLocation = StoreLocation.LocalMachine;
 
         // Statics initialized from app.config
-        internal static string CertDistinguishedName = "CN=HomeRealmSTS.com";
-        internal static string TargetDistinguishedName = "CN=BookStoreSTS.com";
-        internal static double PurchaseLimit;
+        internal static string CertDistinguishedName = "77c42e0cda56fc84c5b878786ea35880a1486155";
+        internal static string TargetDistinguishedName = "5833a93f965f7473";
 
         #region Helper functions to load app settings from config
         /// <summary>
@@ -28,17 +27,16 @@ namespace STS2
         public static void LoadAppSettings()
         {
             //CertDistinguishedName = ConfigurationManager.AppSettings["certDistinguishedName"];
-            CertDistinguishedName = "CN=HomeRealmSTS.com";
+            //CertDistinguishedName = "CN=HomeRealmSTS.com";
             CheckIfLoaded(CertDistinguishedName);
 
             //TargetDistinguishedName = ConfigurationManager.AppSettings["targetDistinguishedName"];
-            TargetDistinguishedName = "CN=BookStoreSTS.com";
+            //TargetDistinguishedName = "CN=BookStoreSTS.com";
             CheckIfLoaded(TargetDistinguishedName);
 
             //string purchaseLimitString = ConfigurationManager.AppSettings["purchaseLimit"];
             //CheckIfLoaded(purchaseLimitString);
             //PurchaseLimit = Double.Parse(purchaseLimitString);
-            PurchaseLimit = 100.0;
         }
 
         /// <summary>

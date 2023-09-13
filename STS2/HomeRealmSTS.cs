@@ -21,12 +21,6 @@ namespace STS2
         {
         }
 
-        static double GetPurchaseLimit()
-        {
-            // give every authenticated caller the configured purchase limit
-            return ServiceConstants.PurchaseLimit;
-        }
-
         /// <summary>
         /// Overrides the GetIssuedClaims from the SecurityTokenService Base Class
         /// to return a valid user claim and purchase limit claim with the appropriate purchase limit 
