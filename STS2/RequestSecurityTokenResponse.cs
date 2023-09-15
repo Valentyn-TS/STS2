@@ -33,7 +33,7 @@ namespace STS2
         /// Default constructor
         /// </summary>
         public RequestSecurityTokenResponse()
-            : this(String.Empty, String.Empty, 0, null, null, null, false)
+            : this(String.Empty, String.Empty, 0, null, null, false)
         {
         }
 
@@ -52,12 +52,12 @@ namespace STS2
                                             int keySize,
                                             EndpointAddress appliesTo,
                                             SecurityToken requestedSecurityToken,
-                                            SecurityToken requestedProofToken,
+                                            //SecurityToken requestedProofToken,
                                             bool computeKey) :
             base(context, tokenType, keySize, appliesTo) // Pass first 4 params to base class
         {
             this.requestedSecurityToken = requestedSecurityToken;
-            this.requestedProofToken = requestedProofToken;
+            //this.requestedProofToken = requestedProofToken;
             this.computeKey = computeKey;
         }
 
@@ -75,11 +75,11 @@ namespace STS2
         /// A SecurityToken that represents the proof token associated with 
         /// the requested SecurityToken
         /// </summary>
-        public SecurityToken RequestedProofToken
-        {
-            get { return requestedProofToken; }
-            set { requestedProofToken = value; }
-        }
+        //public SecurityToken RequestedProofToken
+        //{
+        //    get { return requestedProofToken; }
+        //    set { requestedProofToken = value; }
+        //}
 
         /// <summary>
         /// A SecurityKeyIdentifierClause that can be used to refer to the requested 
@@ -105,11 +105,11 @@ namespace STS2
         /// The SecurityToken that represents entropy provided by the issuer
         /// Null if the issuer did not provide entropy
         /// </summary>
-        public SecurityToken IssuerEntropy
-        {
-            get { return issuerEntropy; }
-            set { issuerEntropy = value; }
-        }
+        //public SecurityToken IssuerEntropy
+        //{
+        //    get { return issuerEntropy; }
+        //    set { issuerEntropy = value; }
+        //}
 
         /// <summary>
         /// Indicates whether a key must be computed (typically from the combination of issuer and requester entropy)
@@ -128,37 +128,37 @@ namespace STS2
         /// <param name="issuerEntropy">Entropy provided by the issuer</param>
         /// <param name="keySize">Size of required key, in bits</param>
         /// <returns>Array of bytes that contain key material</returns>
-        public static byte[] ComputeCombinedKey(byte[] requestorEntropy, byte[] issuerEntropy, int keySize)
-        {
-            KeyedHashAlgorithm kha = new HMACSHA1(requestorEntropy, true);
+        //public static byte[] ComputeCombinedKey(byte[] requestorEntropy, byte[] issuerEntropy, int keySize)
+        //{
+        //    KeyedHashAlgorithm kha = new HMACSHA1(requestorEntropy, true);
 
-            byte[] key = new byte[keySize / 8]; // Final key
-            byte[] a = issuerEntropy; // A(0)
-            byte[] b = new byte[kha.HashSize / 8 + a.Length]; // Buffer for A(i) + seed
+        //    byte[] key = new byte[keySize / 8]; // Final key
+        //    byte[] a = issuerEntropy; // A(0)
+        //    byte[] b = new byte[kha.HashSize / 8 + a.Length]; // Buffer for A(i) + seed
 
-            for (int i = 0; i < key.Length;)
-            {
-                // Calculate A(i+1).                
-                kha.Initialize();
-                a = kha.ComputeHash(a);
+        //    for (int i = 0; i < key.Length;)
+        //    {
+        //        // Calculate A(i+1).                
+        //        kha.Initialize();
+        //        a = kha.ComputeHash(a);
 
-                // Calculate A(i) + seed
-                a.CopyTo(b, 0);
-                issuerEntropy.CopyTo(b, a.Length);
-                kha.Initialize();
-                byte[] result = kha.ComputeHash(b);
+        //        // Calculate A(i) + seed
+        //        a.CopyTo(b, 0);
+        //        issuerEntropy.CopyTo(b, a.Length);
+        //        kha.Initialize();
+        //        byte[] result = kha.ComputeHash(b);
 
-                for (int j = 0; j < result.Length; j++)
-                {
-                    if (i < key.Length)
-                        key[i++] = result[j];
-                    else
-                        break;
-                }
-            }
+        //        for (int j = 0; j < result.Length; j++)
+        //        {
+        //            if (i < key.Length)
+        //                key[i++] = result[j];
+        //            else
+        //                break;
+        //        }
+        //    }
 
-            return key;
-        }
+        //    return key;
+        //}
 
         // Methods of BodyWriter        
         /// <summary>

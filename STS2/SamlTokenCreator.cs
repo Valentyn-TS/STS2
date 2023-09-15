@@ -21,9 +21,9 @@ namespace STS2
         /// <param name="samlAttributes">The Saml Attributes to be used in the construction of the SAML Token</param>
         /// <returns>A SAML Token</returns>
         public static SamlSecurityToken CreateSamlToken(string stsName,
-                                                        BinarySecretSecurityToken proofToken,
+                                                        //BinarySecretSecurityToken proofToken,
                                                         SecurityToken issuerToken,
-                                                        SecurityToken proofKeyEncryptionToken,
+                                                        //SecurityToken proofKeyEncryptionToken,
                                                         SamlConditions samlConditions,
                                                         IEnumerable<SamlAttribute> samlAttributes)
         {
@@ -32,10 +32,10 @@ namespace STS2
             SecurityKeyIdentifier issuerKeyIdentifier = new SecurityKeyIdentifier(skic);
 
             // Create an encrypted key clause containing the encrypted proof key
-            byte[] wrappedKey = proofKeyEncryptionToken.SecurityKeys[0].EncryptKey(SecurityAlgorithms.RsaOaepKeyWrap, proofToken.GetKeyBytes());
-            SecurityKeyIdentifierClause encryptingTokenClause = proofKeyEncryptionToken.CreateKeyIdentifierClause<X509ThumbprintKeyIdentifierClause>();
-            EncryptedKeyIdentifierClause encryptedKeyClause = new EncryptedKeyIdentifierClause(wrappedKey, SecurityAlgorithms.RsaOaepKeyWrap, new SecurityKeyIdentifier(encryptingTokenClause));
-            SecurityKeyIdentifier proofKeyIdentifier = new SecurityKeyIdentifier(encryptedKeyClause);
+            //byte[] wrappedKey = proofKeyEncryptionToken.SecurityKeys[0].EncryptKey(SecurityAlgorithms.RsaOaepKeyWrap, proofToken.GetKeyBytes());
+            //SecurityKeyIdentifierClause encryptingTokenClause = proofKeyEncryptionToken.CreateKeyIdentifierClause<X509ThumbprintKeyIdentifierClause>();
+            //EncryptedKeyIdentifierClause encryptedKeyClause = new EncryptedKeyIdentifierClause(wrappedKey, SecurityAlgorithms.RsaOaepKeyWrap, new SecurityKeyIdentifier(encryptingTokenClause));
+            //SecurityKeyIdentifier proofKeyIdentifier = new SecurityKeyIdentifier(encryptedKeyClause);
 
             // Create a comfirmationMethod for HolderOfKey
             List<string> confirmationMethods = new List<string>(1);
@@ -47,7 +47,7 @@ namespace STS2
                                                       null,
                                                       confirmationMethods,
                                                       null,
-                                                      proofKeyIdentifier);
+                                                      null);                                                   
 
             // Create a SamlAttributeStatement from the passed in SamlAttribute collection and the SamlSubject from above
             SamlAttributeStatement samlAttributeStatement = new SamlAttributeStatement(samlSubject, samlAttributes);

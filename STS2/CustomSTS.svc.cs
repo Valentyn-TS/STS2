@@ -117,10 +117,11 @@ namespace STS2
         /// <returns>RequestSecurityTokenResponse</returns>
         protected static RequestSecurityTokenBase GetRequestSecurityTokenResponse(RequestSecurityTokenBase requestSecurityToken,
                                                                                       int keySize,
-                                                                                      SecurityToken proofToken,
-                                                                                      SecurityToken samlToken,
-                                                                                      byte[] senderEntropy,
-                                                                                      byte[] stsEntropy)
+                                                                                      //SecurityToken proofToken,
+                                                                                      SecurityToken samlToken
+                                                                                      //byte[] senderEntropy,
+                                                                                      //byte[] stsEntropy)
+                                                                                      )
         {
             // Create an uninitialized RequestSecurityTokenResponse object and set the various properties
             RequestSecurityTokenResponse rstr = new RequestSecurityTokenResponse();
@@ -132,15 +133,15 @@ namespace STS2
             rstr.KeySize = keySize;
 
             // If sender provided entropy then use combined entropy so set the IssuerEntropy
-            if (senderEntropy != null)
-            {
-                rstr.IssuerEntropy = new BinarySecretSecurityToken(stsEntropy);
-                rstr.ComputeKey = true;
-            }
-            else // Issuer entropy only...
-            {
-                rstr.RequestedProofToken = proofToken;
-            }
+            //if (senderEntropy != null)
+            //{
+            //    rstr.IssuerEntropy = new BinarySecretSecurityToken(stsEntropy);
+            //    rstr.ComputeKey = true;
+            //}
+            //else // Issuer entropy only...
+            //{
+            //    rstr.RequestedProofToken = proofToken;
+            //}
 
             return rstr;
         }
@@ -182,6 +183,7 @@ namespace STS2
             byte[] stsEntropy = null;
 
             // If sender provided entropy, then use combined entropy
+                       
             if (senderEntropy != null)
             {
                 // Create an array to store the entropy bytes
@@ -190,7 +192,7 @@ namespace STS2
                 RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
                 random.GetNonZeroBytes(stsEntropy);
                 // Compute the combined key
-                key = RequestSecurityTokenResponse.ComputeCombinedKey(senderEntropy, stsEntropy, keySize);
+                //key = RequestSecurityTokenResponse.ComputeCombinedKey(senderEntropy, stsEntropy, keySize);
             }
             else // Issuer entropy only...
             {
@@ -204,7 +206,7 @@ namespace STS2
             // Create a BinarySecretSecurityToken to be the proof token, based on the key material
             // in key. The key is the combined key in the combined entropy case, or the issuer entropy
             // otherwise
-            BinarySecretSecurityToken proofToken = new BinarySecretSecurityToken(key);
+            //BinarySecretSecurityToken proofToken = new BinarySecretSecurityToken(key);
 
             // Create the saml condition
             SamlConditions samlConditions = new SamlConditions(DateTime.UtcNow - TimeSpan.FromMinutes(5), DateTime.UtcNow + TimeSpan.FromHours(10));
@@ -212,14 +214,14 @@ namespace STS2
 
             // Create a SAML token, valid for around 10 hours
             SamlSecurityToken samlToken = SamlTokenCreator.CreateSamlToken(this.stsName,
-                                                                           proofToken,
+                                                                           //proofToken,
                                                                            this.IssuerToken,
-                                                                           this.ProofKeyEncryptionToken,
+                                                                           //this.ProofKeyEncryptionToken,
                                                                            samlConditions,
                                                                            samlAttributes);
 
             // Set up RSTR
-            RequestSecurityTokenBase rstr = GetRequestSecurityTokenResponse(rst, keySize, proofToken, samlToken, senderEntropy, stsEntropy);
+            RequestSecurityTokenBase rstr = GetRequestSecurityTokenResponse(rst, keySize, /*proofToken*/ samlToken /*senderEntropy, stsEntropy*/);
 
             // Create a message from the RSTR
             Message rstrMessage = Message.CreateMessage(message.Version, Constants.Trust.Actions.IssueReply, rstr);
