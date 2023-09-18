@@ -15,8 +15,8 @@ namespace STS2
         // Various constants for WS-Trust
         public class Trust
         {
-            public const string NamespaceUri = "http://schemas.xmlsoap.org/ws/2005/02/trust";
-
+            //public const string NamespaceUri = "http://schemas.xmlsoap.org/ws/2005/02/trust";
+            public const string NamespaceUri = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
             public class Actions
             {
                 public const string Issue = "http://schemas.xmlsoap.org/ws/2005/02/trust/RST/Issue";
@@ -52,7 +52,8 @@ namespace STS2
         // Various constants for WS-Policy
         public class Policy
         {
-            public const string NamespaceUri = "http://schemas.xmlsoap.org/ws/2004/09/policy";
+//            public const string NamespaceUri = "http://schemas.xmlsoap.org/ws/2004/09/policy";
+            public const string NamespaceUri = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0";
 
             public class Elements
             {

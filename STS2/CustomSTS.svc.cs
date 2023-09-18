@@ -116,7 +116,7 @@ namespace STS2
         /// <param name="samlToken">The SAML Token to be issued</param>
         /// <returns>RequestSecurityTokenResponse</returns>
         protected static RequestSecurityTokenBase GetRequestSecurityTokenResponse(RequestSecurityTokenBase requestSecurityToken,
-                                                                                      int keySize,
+                                                                                      //int keySize,
                                                                                       //SecurityToken proofToken,
                                                                                       SecurityToken samlToken
                                                                                       //byte[] senderEntropy,
@@ -130,7 +130,7 @@ namespace STS2
             rstr.RequestedUnattachedReference = samlToken.CreateKeyIdentifierClause<SamlAssertionKeyIdentifierClause>();
             rstr.RequestedAttachedReference = samlToken.CreateKeyIdentifierClause<SamlAssertionKeyIdentifierClause>();
             rstr.Context = requestSecurityToken.Context;
-            rstr.KeySize = keySize;
+            //rstr.KeySize = keySize;
 
             // If sender provided entropy then use combined entropy so set the IssuerEntropy
             //if (senderEntropy != null)
@@ -168,7 +168,7 @@ namespace STS2
             Collection<SamlAttribute> samlAttributes = GetIssuedClaims(rst);
 
             // get the key size, default to 192
-            int keySize = (rst.KeySize != 0) ? rst.KeySize : 192;
+            //int keySize = (rst.KeySize != 0) ? rst.KeySize : 192;
 
             // Create proof token
             // Get requester entropy, if any
@@ -179,29 +179,29 @@ namespace STS2
                 senderEntropy = ((BinarySecretSecurityToken)entropyToken).GetKeyBytes();
             }
 
-            byte[] key = null;
-            byte[] stsEntropy = null;
+            //byte[] key = null;
+            //byte[] stsEntropy = null;
 
             // If sender provided entropy, then use combined entropy
                        
-            if (senderEntropy != null)
-            {
-                // Create an array to store the entropy bytes
-                stsEntropy = new byte[keySize / 8];
-                // Create some random bytes
-                RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
-                random.GetNonZeroBytes(stsEntropy);
-                // Compute the combined key
-                //key = RequestSecurityTokenResponse.ComputeCombinedKey(senderEntropy, stsEntropy, keySize);
-            }
-            else // Issuer entropy only...
-            {
-                // Create an array to store the entropy bytes
-                key = new byte[keySize / 8];
-                // Create some random bytes
-                RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
-                random.GetNonZeroBytes(key);
-            }
+            //if (senderEntropy != null)
+            //{
+            //    // Create an array to store the entropy bytes
+            //    //stsEntropy = new byte[keySize / 8];
+            //    // Create some random bytes
+            //    RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
+            //    random.GetNonZeroBytes(stsEntropy);
+            //    // Compute the combined key
+            //    //key = RequestSecurityTokenResponse.ComputeCombinedKey(senderEntropy, stsEntropy, keySize);
+            //}
+            //else // Issuer entropy only...
+            //{
+            //    // Create an array to store the entropy bytes
+            //    key = new byte[keySize / 8];
+            //    // Create some random bytes
+            //    RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
+            //    random.GetNonZeroBytes(key);
+            //}
 
             // Create a BinarySecretSecurityToken to be the proof token, based on the key material
             // in key. The key is the combined key in the combined entropy case, or the issuer entropy
@@ -221,7 +221,7 @@ namespace STS2
                                                                            samlAttributes);
 
             // Set up RSTR
-            RequestSecurityTokenBase rstr = GetRequestSecurityTokenResponse(rst, keySize, /*proofToken*/ samlToken /*senderEntropy, stsEntropy*/);
+            RequestSecurityTokenBase rstr = GetRequestSecurityTokenResponse(rst, /*keySize, proofToken*/ samlToken /*senderEntropy, stsEntropy*/);
 
             // Create a message from the RSTR
             Message rstrMessage = Message.CreateMessage(message.Version, Constants.Trust.Actions.IssueReply, rstr);

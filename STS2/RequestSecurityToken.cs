@@ -131,7 +131,7 @@ namespace STS2
                 writer.WriteEndElement(); // wst:Entropy
             }
 
-            // If there is a specified keySize
+            //If there is a specified keySize
             if (this.KeySize > 0)
             {
                 // Write the wst:KeySize start tag

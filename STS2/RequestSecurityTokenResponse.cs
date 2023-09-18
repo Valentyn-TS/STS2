@@ -22,8 +22,8 @@ namespace STS2
     {
         // private members
         private SecurityToken requestedSecurityToken;
-        private SecurityToken requestedProofToken;
-        private SecurityToken issuerEntropy;
+        //private SecurityToken requestedProofToken;
+        //private SecurityToken issuerEntropy;
         private SecurityKeyIdentifierClause requestedAttachedReference;
         private SecurityKeyIdentifierClause requestedUnattachedReference;
         private bool computeKey;
@@ -224,33 +224,33 @@ namespace STS2
             }
 
             // If the requestedProofToken is non-null, then the STS is providing all the key material...
-            if (this.requestedProofToken != null)
-            {
-                // Write the wst:RequestedProofToken start tag
-                writer.WriteStartElement(Constants.Trust.Elements.RequestedProofToken, Constants.Trust.NamespaceUri);
-                // Write the proof token using the serializer
-                ser.WriteToken(writer, requestedProofToken);
-                writer.WriteEndElement(); // wst:RequestedSecurityToken
-            }
+            //if (this.requestedProofToken != null)
+            //{
+            //    // Write the wst:RequestedProofToken start tag
+            //    writer.WriteStartElement(Constants.Trust.Elements.RequestedProofToken, Constants.Trust.NamespaceUri);
+            //    // Write the proof token using the serializer
+            //    ser.WriteToken(writer, requestedProofToken);
+            //    writer.WriteEndElement(); // wst:RequestedSecurityToken
+            //}
 
-            // If issuerEntropy is non-null and computeKey is true, then combined entropy is being used...
-            if (this.issuerEntropy != null && this.computeKey)
-            {
-                // Write the wst:RequestedProofToken start tag
-                writer.WriteStartElement(Constants.Trust.Elements.RequestedProofToken, Constants.Trust.NamespaceUri);
-                // Write the wst:ComputeKey start tag
-                writer.WriteStartElement(Constants.Trust.Elements.ComputedKey, Constants.Trust.NamespaceUri);
-                // Write the PSHA1 algorithm value
-                writer.WriteValue(Constants.Trust.ComputedKeyAlgorithms.PSHA1);
-                writer.WriteEndElement(); // wst:ComputedKey
-                writer.WriteEndElement(); // wst:RequestedSecurityToken
+            //// If issuerEntropy is non-null and computeKey is true, then combined entropy is being used...
+            //if (this.issuerEntropy != null && this.computeKey)
+            //{
+            //    // Write the wst:RequestedProofToken start tag
+            //    writer.WriteStartElement(Constants.Trust.Elements.RequestedProofToken, Constants.Trust.NamespaceUri);
+            //    // Write the wst:ComputeKey start tag
+            //    writer.WriteStartElement(Constants.Trust.Elements.ComputedKey, Constants.Trust.NamespaceUri);
+            //    // Write the PSHA1 algorithm value
+            //    writer.WriteValue(Constants.Trust.ComputedKeyAlgorithms.PSHA1);
+            //    writer.WriteEndElement(); // wst:ComputedKey
+            //    writer.WriteEndElement(); // wst:RequestedSecurityToken
 
-                // Write the wst:Entropy start tag
-                writer.WriteStartElement(Constants.Trust.Elements.Entropy, Constants.Trust.NamespaceUri);
-                // Write the issuerEntropy out using the serializer
-                ser.WriteToken(writer, this.issuerEntropy);
-                writer.WriteEndElement(); // wst:Entropy
-            }
+            //    // Write the wst:Entropy start tag
+            //    writer.WriteStartElement(Constants.Trust.Elements.Entropy, Constants.Trust.NamespaceUri);
+            //    // Write the issuerEntropy out using the serializer
+            //    ser.WriteToken(writer, this.issuerEntropy);
+            //    writer.WriteEndElement(); // wst:Entropy
+            //}
 
             writer.WriteEndElement(); // wst:RequestSecurityTokenResponse
         }
