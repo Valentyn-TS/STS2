@@ -56,10 +56,10 @@ namespace STS2
         /// <summary>
         /// The SecurityToken used to encrypt the proof key in the issued token.
         /// </summary>
-        protected SecurityToken ProofKeyEncryptionToken
-        {
-            get { return this.proofKeyEncryptionToken; }
-        }
+        //protected SecurityToken ProofKeyEncryptionToken
+        //{
+        //    get { return this.proofKeyEncryptionToken; }
+        //}
 
         /// <summary>
         /// abstract method for setting up claims in the SAML Token issued by the STS
@@ -96,16 +96,16 @@ namespace STS2
         /// </summary>
         /// <param name="keySize">keySize</param>
         /// <returns>Proof Token</returns>
-        protected static BinarySecretSecurityToken CreateProofToken(int keySize)
-        {
-            // Create an array to store the key bytes
-            byte[] key = new byte[keySize / 8];
-            // Create some random bytes
-            RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
-            random.GetNonZeroBytes(key);
-            // Create a BinarySecretSecurityToken from the random bytes and return it
-            return new BinarySecretSecurityToken(key);
-        }
+        //protected static BinarySecretSecurityToken CreateProofToken(int keySize)
+        //{
+        //    // Create an array to store the key bytes
+        //    byte[] key = new byte[keySize / 8];
+        //    // Create some random bytes
+        //    RNGCryptoServiceProvider random = new RNGCryptoServiceProvider();
+        //    random.GetNonZeroBytes(key);
+        //    // Create a BinarySecretSecurityToken from the random bytes and return it
+        //    return new BinarySecretSecurityToken(key);
+        //}
 
         /// <summary>
         /// Helper Method to set up the RSTR

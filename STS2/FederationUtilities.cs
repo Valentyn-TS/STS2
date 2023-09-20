@@ -64,11 +64,11 @@ namespace STS2
         /// <param name="storeLocation">Location of certificate store (e.g. LocalMachine, CurrentUser)</param>
         /// <param name="subjectDistinguishedName">The Subject Distinguished Name of the certificate</param>
         /// <returns>The corresponding X509 Certificate thumbprint</returns>
-        public static byte[] GetCertificateThumbprint(StoreName storeName, StoreLocation storeLocation, string subjectDistinguishedName)
-        {
-            X509Certificate2 certificate = LookupCertificate(storeName, storeLocation, subjectDistinguishedName);
-            return certificate.GetCertHash();
-        }
+        //public static byte[] GetCertificateThumbprint(StoreName storeName, StoreLocation storeLocation, string subjectDistinguishedName)
+        //{
+        //    X509Certificate2 certificate = LookupCertificate(storeName, storeLocation, subjectDistinguishedName);
+        //    return certificate.GetCertHash();
+        //}
 
         #endregion
 

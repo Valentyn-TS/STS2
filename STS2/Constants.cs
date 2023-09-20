@@ -8,6 +8,7 @@ namespace STS2
     public class Constants
     {
         public const string Namespace = "http://tempuri.org/";
+        //public const string Namespace = "http://docs.oasis-open.org/ws-sx/ws-trust/200512";
         public const string SamlTokenTypeUri = "http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile-1.1#SAMLV1.1";
 
         public const string ServiceAudienceUri = "https://localhost:8080/services/echo/soap12";
@@ -17,11 +18,17 @@ namespace STS2
         {
             //public const string NamespaceUri = "http://schemas.xmlsoap.org/ws/2005/02/trust";
             public const string NamespaceUri = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
+            
+            //public const string NamespaceUri = "http://docs.oasis-open.org/ws-sx/ws-trust/200512";
+            
             public class Actions
             {
                 public const string Issue = "http://schemas.xmlsoap.org/ws/2005/02/trust/RST/Issue";
                 public const string IssueReply = "http://schemas.xmlsoap.org/ws/2005/02/trust/RSTR/Issue";
+                //public const string Issue = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
+                //public const string IssueReply = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd";
             }
+
 
             public class Attributes
             {
@@ -52,8 +59,9 @@ namespace STS2
         // Various constants for WS-Policy
         public class Policy
         {
-//            public const string NamespaceUri = "http://schemas.xmlsoap.org/ws/2004/09/policy";
-            public const string NamespaceUri = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0";
+            public const string NamespaceUri = "http://schemas.xmlsoap.org/ws/2004/09/policy";
+
+            //public const string NamespaceUri = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0";
 
             public class Elements
             {
@@ -65,6 +73,7 @@ namespace STS2
         public class Addressing
         {
             public const string NamespaceUri = "http://www.w3.org/2005/08/addressing";
+
 
             public class Elements
             {

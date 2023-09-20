@@ -26,17 +26,8 @@ namespace STS2
         /// </summary>
         public static void LoadAppSettings()
         {
-            //CertDistinguishedName = ConfigurationManager.AppSettings["certDistinguishedName"];
-            //CertDistinguishedName = "CN=HomeRealmSTS.com";
             CheckIfLoaded(CertDistinguishedName);
-
-            //TargetDistinguishedName = ConfigurationManager.AppSettings["targetDistinguishedName"];
-            //TargetDistinguishedName = "CN=BookStoreSTS.com";
             CheckIfLoaded(TargetDistinguishedName);
-
-            //string purchaseLimitString = ConfigurationManager.AppSettings["purchaseLimit"];
-            //CheckIfLoaded(purchaseLimitString);
-            //PurchaseLimit = Double.Parse(purchaseLimitString);
         }
 
         /// <summary>
@@ -52,7 +43,5 @@ namespace STS2
         }
 
         #endregion
-
-        private ServiceConstants() { }
     }
 }
